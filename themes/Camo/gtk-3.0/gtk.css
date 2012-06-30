@@ -8,3 +8,13 @@
 *:insensitive {
 	color: #888;
 }
+
+GtkEntry {
+	color: black;
+	background-color: white;
+}
+
+GtkTextView {
+	color: black;
+	background-color: white;
+}
