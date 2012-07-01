@@ -1,5 +1,10 @@
 * {
 	engine: camo;
 	padding: 0.25em;
-	border: 1px solid white;
+	border: 1px solid black;
+	color: black;
+}
+
+*:insensitive {
+	color: #aaa;
 }

@@ -79,12 +79,12 @@ camo_engine_init (CamoEngine *self)
   cairo_surface_t *surface = cairo_image_surface_create (CAIRO_FORMAT_ARGB32, width, height);
   camo_pool = cairo_create(surface);
 
-  cairo_set_source_rgba (camo_pool, 0.5, 0.39, 0.35, 1.0);
+  cairo_set_source_rgba (camo_pool, 0.9, 0.79, 0.75, 1.0);
   cairo_rectangle (camo_pool, 0, 0, width, height);
   cairo_fill (camo_pool);
 
   for (i = 0; i < area; i += 22500) {
-    cairo_set_source_rgba (camo_pool, 0.58, 0.55, 0.47, 1.0);
+    cairo_set_source_rgba (camo_pool, 0.98, 0.95, 0.87, 1.0);
     xs = g_random_double_range(0, width-5);
     ys = g_random_double_range(0, height-10);
 
@@ -98,7 +98,7 @@ camo_engine_init (CamoEngine *self)
   }
 
   for (i = 0; i < area; i += 2500) {
-    cairo_set_source_rgba (camo_pool, 0.31, 0.39, 0.35, 1.0);
+    cairo_set_source_rgba (camo_pool, 0.71, 0.79, 0.75, 1.0);
     xs = g_random_double_range(0, width-5);
     ys = g_random_double_range(0, height-10);
 
@@ -112,7 +112,7 @@ camo_engine_init (CamoEngine *self)
   }
 
   for (i = 0; i < area; i += 2500) {
-    cairo_set_source_rgba (camo_pool, 0.2, 0.2, 0.27, 1.0);
+    cairo_set_source_rgba (camo_pool, 0.6, 0.6, 0.67, 1.0);
     xs = g_random_double_range(0, width-5);
     ys = g_random_double_range(0, height-10);
 
