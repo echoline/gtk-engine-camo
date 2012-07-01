@@ -9,6 +9,10 @@
 	color: #888;
 }
 
+*:selected {
+	background-color: yellow;
+}
+
 GtkEntry {
 	color: black;
 	background-color: white;
