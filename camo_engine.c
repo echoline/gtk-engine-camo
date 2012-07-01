@@ -60,35 +60,40 @@ camo_engine_register_types (GTypeModule *module)
   camo_engine_register_type (module);
 }
 
-cairo_t *camo_pool = NULL;
+cairo_surface_t *pool = NULL;
+gint pool_width = 0;
+gint pool_height = 0;
 
 static void
 camo_engine_init (CamoEngine *self)
 {
+}
+
+static void
+pool_gen (gint width, gint height)
+{
   gdouble xs, ys;
   gint i;
-  gint width, height;
-  gdouble area;
+  gdouble area = width * height;
 
-  GdkWindow *root = gdk_get_default_root_window ();
-  gdk_window_get_geometry (root, NULL, NULL, &width, &height);
-  area = width * height;
+  if (pool)
+    cairo_surface_destroy(pool);
 
-  cairo_surface_t *surface = cairo_image_surface_create (CAIRO_FORMAT_ARGB32, width, height);
-  camo_pool = cairo_create(surface);
+  pool = cairo_image_surface_create (CAIRO_FORMAT_ARGB32, width, height);
+  cairo_t *cr = cairo_create(pool);
 
-  cairo_set_source_rgba (camo_pool, 0.5, 0.39, 0.35, 1.0);
-  cairo_rectangle (camo_pool, 0, 0, width, height);
-  cairo_fill (camo_pool);
+  cairo_set_source_rgba (cr, 0.5, 0.39, 0.35, 1.0);
+  cairo_rectangle (cr, 0, 0, width, height);
+  cairo_fill (cr);
 
   for (i = 0; i < area; i += 22500) {
-    cairo_set_source_rgba (camo_pool, 0.58, 0.55, 0.47, 1.0);
+    cairo_set_source_rgba (cr, 0.58, 0.55, 0.47, 1.0);
     xs = g_random_double_range(0, width-5);
     ys = g_random_double_range(0, height-10);
 
     while (g_random_double_range(0.0, 1.0) < 0.99) {
-      cairo_rectangle (camo_pool, xs, ys, 5, 10);
-      cairo_fill (camo_pool);
+      cairo_rectangle (cr, xs, ys, 5, 10);
+      cairo_fill (cr);
 
       xs += g_random_double_range(-5, 5);
       ys += g_random_double_range(-5, 5);
@@ -96,13 +101,13 @@ camo_engine_init (CamoEngine *self)
   }
 
   for (i = 0; i < area; i += 2500) {
-    cairo_set_source_rgba (camo_pool, 0.31, 0.39, 0.35, 1.0);
+    cairo_set_source_rgba (cr, 0.31, 0.39, 0.35, 1.0);
     xs = g_random_double_range(0, width-5);
     ys = g_random_double_range(0, height-10);
 
     while (g_random_double_range(0.0, 1.0) < 0.99) {
-      cairo_rectangle (camo_pool, xs, ys, 5, 10);
-      cairo_fill (camo_pool);
+      cairo_rectangle (cr, xs, ys, 5, 10);
+      cairo_fill (cr);
 
       xs += g_random_double_range(-5, 5);
       ys += g_random_double_range(-5, 5);
@@ -110,18 +115,20 @@ camo_engine_init (CamoEngine *self)
   }
 
   for (i = 0; i < area; i += 2500) {
-    cairo_set_source_rgba (camo_pool, 0.2, 0.2, 0.27, 1.0);
+    cairo_set_source_rgba (cr, 0.2, 0.2, 0.27, 1.0);
     xs = g_random_double_range(0, width-5);
     ys = g_random_double_range(0, height-10);
 
     while (g_random_double_range(0.0, 1.0) < 0.99) {
-      cairo_rectangle (camo_pool, xs, ys, 5, 10);
-      cairo_fill (camo_pool);
+      cairo_rectangle (cr, xs, ys, 5, 10);
+      cairo_fill (cr);
 
       xs += g_random_double_range(-5, 5);
       ys += g_random_double_range(-5, 5);
     }
   }
+
+  cairo_destroy(cr);
 }
 
 static void
@@ -134,13 +141,26 @@ camo_engine_render_background (GtkThemingEngine *engine,
 {
   GdkRGBA color;
   GtkStateFlags flags = gtk_theming_engine_get_state (engine);
+  gboolean generate = FALSE;
 
   gtk_theming_engine_get_background_color (engine, flags, &color);
 
   cairo_save (cr);
 
-  if (color.red == color.green == color.blue == 0)
-    cairo_set_source_surface (cr, cairo_get_target(camo_pool), 0, 0);
+  if (color.red == color.green == color.blue == 0) {
+    if (width > pool_width) {
+      generate = TRUE;
+      pool_width = width;
+    }
+    if (height > pool_height) {
+      generate = TRUE;
+      pool_height = height;
+    }
+    if (generate) {
+      pool_gen (width, height);
+    }
+    cairo_set_source_surface (cr, pool, 0, 0);
+  }
   else
     gdk_cairo_set_source_rgba (cr, &color);
 
