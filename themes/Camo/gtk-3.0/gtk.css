@@ -1,7 +1,7 @@
 * {
 	engine: camo;
 	padding: 0.25em;
-	border: 1px solid white;
+	border: 1px solid #555;
 	color: white;
 }
 
@@ -11,6 +11,7 @@
 
 *:selected {
 	background-color: yellow;
+	border-color: yellow;
 }
 
 GtkEntry {
