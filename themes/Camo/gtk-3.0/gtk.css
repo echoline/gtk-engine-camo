@@ -2,16 +2,22 @@
 	engine: camo;
 	padding: 0.25em;
 	border: 1px solid #555;
-	color: white;
-	text-shadow: 1 1 1 #880;
+	color: #e72;
+	text-shadow: 1 1 1 black;
 }
 
 *:insensitive {
-	color: #888;
+	color: gray;
 }
 
 *:selected {
-	background-color: yellow;
+	background-color: gray;
+	border-color: #e72;
+	color: black;
+	text-shadow: 1 1 1 #e72;
+}
+
+*:hover {
 	border-color: yellow;
 }
 

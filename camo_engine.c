@@ -151,7 +151,7 @@ camo_engine_render_background (GtkThemingEngine *engine,
 
   cairo_save (cr);
 
-  if (color.red == color.green == color.blue == 0) {
+  if ((color.red == 0) && (color.green == 0) && (color.blue == 0)) {
     if (width > pool_width) {
       generate = TRUE;
       pool_width = width;
