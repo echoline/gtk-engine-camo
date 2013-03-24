@@ -3,6 +3,7 @@
 	padding: 0.25em;
 	border: 1px solid #555;
 	color: white;
+	text-shadow: 1 1 1 #880;
 }
 
 *:insensitive {
@@ -22,4 +23,8 @@ GtkEntry {
 GtkTextView {
 	color: black;
 	background-color: white;
+}
+
+GtkScrollbar {
+	background-color: gray;
 }

@@ -70,8 +70,11 @@ camo_engine_init (CamoEngine *self)
 }
 
 static void
-pool_gen (gint width, gint height)
+pool_gen ()
 {
+  gint width = pool_width;
+  gint height = pool_height;
+
   gdouble xs, ys;
   gint i;
   gdouble area = width * height;
@@ -142,6 +145,7 @@ camo_engine_render_background (GtkThemingEngine *engine,
   GdkRGBA color;
   GtkStateFlags flags = gtk_theming_engine_get_state (engine);
   gboolean generate = FALSE;
+  gint scr_width, scr_height;
 
   gtk_theming_engine_get_background_color (engine, flags, &color);
 
@@ -152,13 +156,24 @@ camo_engine_render_background (GtkThemingEngine *engine,
       generate = TRUE;
       pool_width = width;
     }
+
     if (height > pool_height) {
       generate = TRUE;
       pool_height = height;
     }
+
     if (generate) {
-      pool_gen (width, height);
+      scr_width = gdk_screen_get_width (gdk_window_get_screen (gdk_get_default_root_window ()));
+      scr_height = gdk_screen_get_height (gdk_window_get_screen (gdk_get_default_root_window ()));
+
+      if (scr_width > pool_width)
+        pool_width = scr_width;
+      if (scr_height > pool_height)
+        pool_height = scr_height;
+
+      pool_gen ();
     }
+
     cairo_set_source_surface (cr, pool, 0, 0);
   }
   else
