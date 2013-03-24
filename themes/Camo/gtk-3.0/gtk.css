@@ -2,7 +2,7 @@
 	engine: camo;
 	padding: 0.25em;
 	border: 1px solid #555;
-	color: #e72;
+	color: yellow;
 	text-shadow: 1 1 1 black;
 }
 
@@ -12,9 +12,9 @@
 
 *:selected {
 	background-color: gray;
-	border-color: #e72;
+	border-color: yellow;
 	color: black;
-	text-shadow: 1 1 1 #e72;
+	text-shadow: 1 1 1 yellow;
 }
 
 *:hover {
