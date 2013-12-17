@@ -3,7 +3,7 @@
 	padding: 0.25em;
 	border: 1px solid #555;
 	color: yellow;
-	text-shadow: 1 1 1 black;
+	text-shadow: 1px 1px 1px black;
 }
 
 *:insensitive {
@@ -14,7 +14,7 @@
 	background-color: gray;
 	border-color: yellow;
 	color: black;
-	text-shadow: 1 1 1 yellow;
+	text-shadow: 1px 1px 1px yellow;
 }
 
 *:hover {
@@ -32,5 +32,12 @@ GtkTextView {
 }
 
 GtkScrollbar {
+	color: black;
 	background-color: gray;
+}
+
+GtkWidget.header, GtkWidget.highlight {
+	color: black;
+	background-color: gray;
+	border: 1px solid black;
 }

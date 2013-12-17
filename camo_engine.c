@@ -26,6 +26,7 @@
 #include <gmodule.h>
 #include <math.h>
 #include <cairo-gobject.h>
+#include "blur.h"
 
 #define CAMO_NAMESPACE "camo"
 
@@ -91,47 +92,49 @@ pool_gen ()
 
   for (i = 0; i < area; i += 22500) {
     cairo_set_source_rgba (cr, 0.58, 0.55, 0.47, 1.0);
-    xs = g_random_double_range(0, width-5);
-    ys = g_random_double_range(0, height-10);
+    xs = g_random_double_range(0, width-10);
+    ys = g_random_double_range(0, height-15);
 
-    while (g_random_double_range(0.0, 1.0) < 0.99) {
-      cairo_rectangle (cr, xs, ys, 5, 10);
+    while (g_random_double_range(0.0, 1.0) < 0.90) {
+      cairo_rectangle (cr, xs, ys, 30, 20);
       cairo_fill (cr);
 
-      xs += g_random_double_range(-5, 5);
-      ys += g_random_double_range(-5, 5);
+      xs += g_random_double_range(-10, 10);
+      ys += g_random_double_range(-10, 10);
     }
   }
 
   for (i = 0; i < area; i += 2500) {
     cairo_set_source_rgba (cr, 0.31, 0.39, 0.35, 1.0);
-    xs = g_random_double_range(0, width-5);
-    ys = g_random_double_range(0, height-10);
+    xs = g_random_double_range(0, width-10);
+    ys = g_random_double_range(0, height-15);
 
-    while (g_random_double_range(0.0, 1.0) < 0.99) {
-      cairo_rectangle (cr, xs, ys, 5, 10);
+    while (g_random_double_range(0.0, 1.0) < 0.90) {
+      cairo_rectangle (cr, xs, ys, 30, 20);
       cairo_fill (cr);
 
-      xs += g_random_double_range(-5, 5);
-      ys += g_random_double_range(-5, 5);
+      xs += g_random_double_range(-10, 10);
+      ys += g_random_double_range(-10, 10);
     }
   }
 
   for (i = 0; i < area; i += 2500) {
     cairo_set_source_rgba (cr, 0.2, 0.2, 0.27, 1.0);
-    xs = g_random_double_range(0, width-5);
-    ys = g_random_double_range(0, height-10);
+    xs = g_random_double_range(0, width-10);
+    ys = g_random_double_range(0, height-15);
 
-    while (g_random_double_range(0.0, 1.0) < 0.99) {
-      cairo_rectangle (cr, xs, ys, 5, 10);
+    while (g_random_double_range(0.0, 1.0) < 0.90) {
+      cairo_rectangle (cr, xs, ys, 30, 20);
       cairo_fill (cr);
 
-      xs += g_random_double_range(-5, 5);
-      ys += g_random_double_range(-5, 5);
+      xs += g_random_double_range(-10, 10);
+      ys += g_random_double_range(-10, 10);
     }
   }
 
   cairo_destroy(cr);
+
+  blur_image_surface (pool, 15, width, height);
 }
 
 static void
